@@ -51,8 +51,6 @@ namespace DigitalSignatureSigningXML
 
             try
             {
-                MemoryStream input = new MemoryStream(File.ReadAllBytes(sourcePath));
-
                 SignatureParameters parameters = new SignatureParameters();
                 parameters.SignatureMethod = SignatureMethod.RSAwithSHA256;
                 parameters.SigningDate = DateTime.Now;
@@ -63,7 +61,7 @@ namespace DigitalSignatureSigningXML
                     SecureString securePwd = new SecureString();
                     //prieš priskiriant slaptažodį galima patikrinti sertifikato informaciją
                     //X509Certificate2.Subject, o jei turi pora raktų X509Certificate2.Publickey
-                    foreach (char c in "my password")
+                    foreach (char c in "My password")
                     {
                         securePwd.AppendChar(c);
                     }
@@ -88,9 +86,9 @@ namespace DigitalSignatureSigningXML
 
                 SignatureDocument signatureDocument = new SignatureDocument();
 
-                using (FileStream fs = new FileStream(sourcePath, FileMode.Open))
+                using (MemoryStream input = new MemoryStream(File.ReadAllBytes(sourcePath)))
                 {
-                    signatureDocument = xadesService.Sign(fs, parameters);
+                    signatureDocument = xadesService.Sign(input, parameters);
                 }
 
                 // Save the signed XML document to a file
@@ -104,7 +102,7 @@ namespace DigitalSignatureSigningXML
             catch (Exception ex)
             {
                 signingReport.IsSuccessful = false;
-
+            
                 //vienas paprastasm sertifikatui, o kitas el. parasui
                 if (ex.Message == "The specified network password is not correct.\r\n" || ex.Message == "The supplied PIN is incorrect.\r\n")
                     signingReport.Message = "Nurodytas sertifikato slaptažodis neteisingas!";

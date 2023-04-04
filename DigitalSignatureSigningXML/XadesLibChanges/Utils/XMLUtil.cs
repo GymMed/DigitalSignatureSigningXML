@@ -28,6 +28,8 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.Xml;
 using System.Text;
 using System.Xml;
+using FirmaXadesNetCoreUpdated;
+using Microsoft.XadesUpdated;
 
 namespace FirmaXadesNetCoreUpdated.Utils
 {
@@ -58,10 +60,10 @@ namespace FirmaXadesNetCoreUpdated.Utils
         /// <summary>
         /// Obtiene el valor canonicalizado de los elementos especificados en elementXpaths
         /// </summary>
-        /// <param name="xadesSignedXml"></param>
+        /// <param name="XadesSignedXmlUpdated"></param>
         /// <param name="elementXpaths"></param>
         /// <returns></returns>
-        public static byte[] ComputeValueOfElementList(XadesSignedXml xadesSignedXml, ArrayList elementXpaths)
+        public static byte[] ComputeValueOfElementList(XadesSignedXmlUpdated xadesSignedXml, ArrayList elementXpaths)
         {
             return ComputeValueOfElementList(xadesSignedXml, elementXpaths, new XmlDsigC14NTransform());
         }
@@ -69,10 +71,10 @@ namespace FirmaXadesNetCoreUpdated.Utils
         /// <summary>
         /// Obtiene el valor canonicalizado de los elementos especificados en elementXpaths
         /// </summary>
-        /// <param name="xadesSignedXml"></param>
+        /// <param name="XadesSignedXmlUpdated"></param>
         /// <param name="elementXpaths"></param>
         /// <returns></returns>
-        public static byte[] ComputeValueOfElementList(XadesSignedXml xadesSignedXml, ArrayList elementXpaths,
+        public static byte[] ComputeValueOfElementList(XadesSignedXmlUpdated xadesSignedXml, ArrayList elementXpaths,
             System.Security.Cryptography.Xml.Transform transform)
         {
             XmlDocument xmlDocument;
@@ -85,7 +87,7 @@ namespace FirmaXadesNetCoreUpdated.Utils
             xmlDocument = signatureXmlElement.OwnerDocument;
             xmlNamespaceManager = new XmlNamespaceManager(xmlDocument.NameTable);
             xmlNamespaceManager.AddNamespace("ds", SignedXml.XmlDsigNamespaceUrl);
-            xmlNamespaceManager.AddNamespace("xades", XadesSignedXml.XadesNamespaceUri);
+            xmlNamespaceManager.AddNamespace("xades", XadesSignedXmlUpdated.XadesNamespaceUri);
 
             using (MemoryStream msResult = new MemoryStream())
             {
@@ -102,7 +104,7 @@ namespace FirmaXadesNetCoreUpdated.Utils
                     {
                         XmlElement clonedElement = (XmlElement)xmlNode.Clone();
 
-                        clonedElement.SetAttribute("xmlns:" + XadesSignedXml.XmlDSigPrefix, XadesSignedXml.XmlDsigNamespaceUrl);
+                        clonedElement.SetAttribute("xmlns:" + XadesSignedXmlUpdated.XmlDSigPrefix, XadesSignedXmlUpdated.XmlDsigNamespaceUrl);
 
                         foreach (var attr in namespaces)
                         {

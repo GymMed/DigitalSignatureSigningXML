@@ -81,6 +81,7 @@
     <Compile Include="Forms\DigitalSignerForm.Designer.cs">
       <DependentUpon>DigitalSignerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NamespaceRemover.cs" />
     <Compile Include="PathValidator.cs" />
     <Compile Include="ReportsManager.cs" />
     <Compile Include="SuccessReport.cs" />

@@ -145,7 +145,7 @@ namespace Microsoft.XadesUpdated
     /// signatures.  The property SignatureStandard will indicate the type of the
     /// signature: XMLDSIG or XAdES.
     /// </summary>
-    public class XadesSignedXmlUpdated : XadesSignedXml
+    public class XadesSignedXmlUpdated : SignedXml
     {
         #region Constants
         /// <summary>

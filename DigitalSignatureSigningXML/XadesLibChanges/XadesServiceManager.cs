@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Cryptography.Xml;
 using System.Xml;
+using NamespaceRemover;
 
 namespace FirmaXadesNetCoreUpdated
 {
@@ -712,6 +713,20 @@ namespace FirmaXadesNetCoreUpdated
             sigDocument.UpdateDocument();
 
             XmlElement signatureElement = (XmlElement)sigDocument.Document.SelectSingleNode("//*[@Id='" + sigDocument.XadesSignature.Signature.Id + "']");
+
+            //string elementString = signatureElement.OuterXml;
+            //NamespaceRemover.NamespaceRemover.RemoveFirstAllNamespacesFromXml(ref elementString);
+            //
+            //XmlDocument doc = new XmlDocument();
+            //doc.PreserveWhitespace = true;
+            //doc.LoadXml(elementString);
+            //signatureElement = doc.DocumentElement;
+
+            var nodes = signatureElement.SelectNodes("//*");
+            foreach (XmlNode node in nodes)
+            {
+                node.Prefix = "";
+            }
 
             // Hay que recargar la firma para que la validación sea correcta ¿¿??
             sigDocument.XadesSignature = new XadesSignedXmlUpdated(sigDocument.Document);
